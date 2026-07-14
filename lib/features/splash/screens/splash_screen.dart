@@ -15,7 +15,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    Future<void>.delayed(const Duration(milliseconds: 1400), () {
+    Future<void>.delayed(const Duration(milliseconds: 2000), () {
       if (mounted) context.go('/home');
     });
   }
@@ -24,11 +24,30 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) => Scaffold(
         body: Center(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            Container(width: 88, height: 88, decoration: BoxDecoration(color: Theme.of(context).colorScheme.primaryContainer, shape: BoxShape.circle), child: Icon(Icons.public_rounded, size: 48, color: Theme.of(context).colorScheme.onPrimaryContainer)).animate().scale(duration: 500.ms, curve: Curves.easeOutBack).fadeIn(),
-            const SizedBox(height: 20),
-            Text(AppConstants.appName, style: Theme.of(context).textTheme.headlineSmall).animate().fadeIn(delay: 250.ms).slideY(begin: .2),
-            const SizedBox(height: 8),
-            Text('Discover every corner of the world', style: Theme.of(context).textTheme.bodyMedium).animate().fadeIn(delay: 450.ms),
+            Container(
+              width: 120,
+              height: 120,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(24),
+                boxShadow: [
+                  BoxShadow(color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.1), blurRadius: 40, spreadRadius: 5, offset: const Offset(0, 10)),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: Image.asset(
+                  'assets/logo.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ).animate().scale(duration: 800.ms, curve: Curves.easeOutBack).fadeIn(duration: 600.ms),
+            const SizedBox(height: 32),
+            Text(AppConstants.appName, style: Theme.of(context).textTheme.headlineMedium?.copyWith(letterSpacing: -0.5))
+                .animate().fadeIn(delay: 300.ms, duration: 600.ms).slideY(begin: .1, curve: Curves.easeOutQuad),
+            const SizedBox(height: 12),
+            Text('Discover every corner of the world', style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant))
+                .animate().fadeIn(delay: 500.ms, duration: 600.ms).slideY(begin: .1, curve: Curves.easeOutQuad),
           ]),
         ),
       );

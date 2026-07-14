@@ -14,16 +14,20 @@ class FavoritesScreen extends ConsumerWidget {
     final favorites = ref.watch(favoriteCountriesProvider);
     final favoriteCodes = ref.watch(favoritesProvider).valueOrNull ?? const <String>{};
     return Scaffold(
-      appBar: AppBar(title: const Text('Favorites')),
+      appBar: AppBar(
+        title: Text('Favorites', style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800, letterSpacing: -0.5)),
+        centerTitle: false,
+        titleSpacing: 24,
+      ),
       body: favorites.when(
         loading: () => const LoadingCountriesView(),
         error: (error, _) => ErrorStateView(error: error, onRetry: () => ref.invalidate(favoriteCountriesProvider)),
         data: (countries) => countries.isEmpty
             ? const EmptyStateView(icon: Icons.favorite_border_rounded, title: 'No favorites yet', message: 'Save countries here for quick offline access.')
             : ListView.separated(
-                padding: const EdgeInsets.all(20),
+                padding: const EdgeInsets.fromLTRB(24, 8, 24, 120),
                 itemCount: countries.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 12),
+                separatorBuilder: (_, __) => const SizedBox(height: 16),
                 itemBuilder: (context, index) {
                   final country = countries[index];
                   return CountryCard(

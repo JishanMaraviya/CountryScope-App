@@ -14,17 +14,25 @@ class FlagImage extends StatelessWidget {
   Widget build(BuildContext context) => Semantics(
         image: true,
         label: '$label flag',
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: CachedNetworkImage(
-            imageUrl: flagUrl(countryCode),
-            width: width,
-            height: height,
-            fit: BoxFit.cover,
-            placeholder: (context, url) => ColoredBox(color: Theme.of(context).colorScheme.surfaceContainerHighest),
-            errorWidget: (context, url, error) => ColoredBox(
-              color: Theme.of(context).colorScheme.surfaceContainerHighest,
-              child: Center(child: Text('🏳️', style: TextStyle(fontSize: height * .48))),
+        child: Container(
+          width: width,
+          height: height,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Theme.of(context).colorScheme.outline.withValues(alpha: 0.3), width: 0.5),
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(11.5),
+            child: CachedNetworkImage(
+              imageUrl: flagUrl(countryCode),
+              width: width,
+              height: height,
+              fit: BoxFit.cover,
+              placeholder: (context, url) => ColoredBox(color: Theme.of(context).colorScheme.surfaceContainerHighest),
+              errorWidget: (context, url, error) => ColoredBox(
+                color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                child: Center(child: Text('🏳️', style: TextStyle(fontSize: height * .48))),
+              ),
             ),
           ),
         ),
